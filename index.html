@@ -95,7 +95,10 @@
     </div>
 
     <!-- secrets.js can be removed when using Cloudflare Workers for API requests -->
-    <script src="secrets.js"></script>
+    <script>
+      // Cloudflare Worker endpoint (your deployed URL)
+      window.CFWORKER_URL = "https://gentle-cherry.james-hosey3.workers.dev/";
+    </script>
     <script src="script.js"></script>
   </body>
 </html>

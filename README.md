@@ -14,11 +14,8 @@ Preferred: use a Cloudflare Worker to keep your API key safe.
 ```html
 <!-- filepath: /workspaces/09-prj-loreal-routine-builder/secrets.js -->
 <script>
-  // For Cloudflare Worker (recommended)
-  window.CFWORKER_URL = "https://your-worker-subdomain.workers.dev";
-
-  // Optional local fallback for testing only (do NOT ship to production)
-  window.OPENAI_API_KEY = "sk-...";
+  // Using your deployed Cloudflare Worker
+  window.CFWORKER_URL = "https://gentle-cherry.james-hosey3.workers.dev/";
 </script>
 ```
 

@@ -17,11 +17,16 @@ body {
   color: #333;
   display: flex;
   justify-content: center;
+  background: #e6e6e6; /* light grey page background */
 }
 
 .page-wrapper {
   width: 90%;
   max-width: 900px;
+  background: #ffffff; /* keep content readable */
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  padding-bottom: 40px;
 }
 
 /* header */
@@ -79,11 +84,12 @@ body {
 
 .chat-window {
   padding: 20px;
-  font-size: 18px;
-  line-height: 1.5;
-  height: 250px;
+  /* increased height + readability tweaks */
+  height: 380px; /* was 250px */
+  font-size: 16px; /* was 18px */
+  line-height: 1.55; /* was 1.5 */
   overflow-y: auto;
-  background: #fafafa;
+  background: #f2f2f2; /* slightly greyer */
   margin-bottom: 20px;
 }
 
@@ -108,6 +114,8 @@ body {
 .msg.bot .bubble {
   background: #fff;
   border: 1px solid #ddd;
+  /* reduce width by ~30% compared to full width */
+  max-width: 70%;
 }
 
 /* placeholder message */
@@ -164,6 +172,59 @@ body {
   outline-offset: 2px;
 }
 
+/* Loader shown while the AI builds the routine */
+.routine-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #444;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  margin: 10px 0;
+}
+.dots {
+  display: inline-flex;
+  gap: 5px;
+}
+.dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--brand-primary);
+  border-radius: 50%;
+  animation: bounce 1s infinite ease-in-out;
+  opacity: 0.25;
+}
+.dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.25;
+  }
+  40% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+/* Disabled state to show user it's working */
+.generate-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.2);
+}
+
 /* visually hidden */
 .visually-hidden {
   position: absolute;
@@ -179,14 +240,14 @@ body {
 
 /* footer */
 .site-footer {
-  margin: 60px 0 40px;
+  margin: 24px 0 16px;
   text-align: center;
   font-size: 14px;
   color: #666;
 }
 
 .site-footer nav {
-  margin-top: 12px;
+  margin-top: 5px;
 }
 
 .site-footer a {
@@ -267,10 +328,13 @@ body {
   margin-top: 10px;
   font-size: 13px;
   color: #333;
-  background: #fff8e6;
+  background: #f3f3f3; /* align with greyer theme */
   border-left: 3px solid var(--brand-accent);
   padding: 8px 10px;
   border-radius: 4px;
+  /* widen box across image (110px) + gap (15px) */
+  width: calc(100% + 125px);
+  margin-left: calc(-110px - 15px);
 }
 
 /* selected products */

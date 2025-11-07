@@ -184,39 +184,60 @@ function appendMessage(role, text) {
 
 /* Send messages to OpenAI via Cloudflare Worker (preferred) or direct as fallback */
 async function askOpenAI(messages) {
-  /* Prefer a Cloudflare Worker endpoint if provided in secrets.js */
-  const endpoint =
-    window.CFWORKER_URL || "https://api.openai.com/v1/chat/completions";
-  const isWorker = Boolean(window.CFWORKER_URL);
-
-  const headers = {
-    "Content-Type": "application/json",
-    ...(isWorker
-      ? {}
-      : {
-          /* Fallback for local testing only. Do not ship API keys to production. */
-          Authorization: `Bearer ${window.OPENAI_API_KEY || ""}`,
-        }),
-  };
-
-  const body = JSON.stringify({
-    model: "gpt-4o",
-    messages,
-  });
+  // Always use your Cloudflare Worker (no direct OpenAI calls for safety)
+  const endpoint = window.CFWORKER_URL;
+  if (!endpoint) {
+    throw new Error(
+      "CF Worker URL missing. Ensure window.CFWORKER_URL is set."
+    );
+  }
 
   const res = await fetch(endpoint, {
     method: "POST",
-    headers,
-    body,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "gpt-4o",
+      messages,
+    }),
   });
 
-  /* Expecting OpenAI-compatible response shape from Worker */
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(
+      `HTTP ${res.status} ${res.statusText} - ${text.slice(0, 180)}`
+    );
+  }
+
   const data = await res.json();
   const content = data?.choices?.[0]?.message?.content;
   if (!content) {
-    throw new Error("No content in AI response.");
+    console.error("Unexpected response shape:", data);
+    throw new Error("Worker must return choices[0].message.content.");
   }
   return content.trim();
+}
+
+/* Simple loader element while waiting for AI */
+let routineLoader = null;
+
+/* Create and show the loading animation inside the chat area */
+function showRoutineLoader() {
+  if (routineLoader) return; // already showing
+  routineLoader = document.createElement("div");
+  routineLoader.className = "routine-loading";
+  routineLoader.innerHTML = `
+    <span>Generating your routine</span>
+    <div class="dots"><span></span><span></span><span></span></div>
+  `;
+  chatWindow.appendChild(routineLoader);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+/* Remove loader */
+function hideRoutineLoader() {
+  if (!routineLoader) return;
+  routineLoader.remove();
+  routineLoader = null;
 }
 
 /* Generate Routine button logic */
@@ -231,6 +252,10 @@ generateBtn.addEventListener("click", async () => {
     );
     return;
   }
+
+  // Prevent multiple clicks while loading
+  generateBtn.disabled = true;
+  generateBtn.setAttribute("aria-busy", "true");
 
   /* Create a simple JSON payload of selected products */
   const minimal = selected.map((p) => ({
@@ -249,21 +274,28 @@ generateBtn.addEventListener("click", async () => {
 
   appendMessage(
     "user",
-    "Generate a personalized routine with my selected products."
+    "Generating a personalized routine with my selected products."
   );
   state.messages.push({ role: "user", content: userMsg });
 
+  showRoutineLoader(); // show animation
+
   try {
     const reply = await askOpenAI(state.messages);
+    hideRoutineLoader();
     state.messages.push({ role: "assistant", content: reply });
     state.routineGenerated = true;
     appendMessage("bot", reply);
   } catch (err) {
+    hideRoutineLoader();
     appendMessage(
       "bot",
-      "Sorry, I couldn't generate a routine right now. Please try again."
+      `Sorry, I couldn't generate a routine. Reason: ${err.message}`
     );
     console.error(err);
+  } finally {
+    generateBtn.disabled = false;
+    generateBtn.removeAttribute("aria-busy");
   }
 });
 
@@ -292,7 +324,7 @@ chatForm.addEventListener("submit", async (e) => {
   } catch (err) {
     appendMessage(
       "bot",
-      "Sorry, I couldn't answer that just now. Please try again."
+      `Sorry, I couldn't answer that. Reason: ${err.message}`
     );
     console.error(err);
   } finally {
