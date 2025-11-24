@@ -13,8 +13,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="img/favicon.png" sizes="32x32" type="image/png" />
-    <link rel="apple-touch-icon" href="img/favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" />
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/img/favicon.png" />
+    <meta name="theme-color" content="#c5a35d" />
   </head>
 
   <body>
@@ -23,6 +26,14 @@
       <header class="site-header">
         <img src="img/loreal-logo.png" alt="L'Oréal Logo" class="logo" />
         <h1 class="site-title">Smart Routine &amp; Product Advisor</h1>
+        <button
+          id="themeToggle"
+          class="theme-toggle"
+          type="button"
+          aria-pressed="false"
+        >
+          Dark mode
+        </button>
       </header>
 
       <!-- Category Filter -->
@@ -88,10 +99,18 @@
       <footer class="site-footer">
         <p>&copy; 2025 L'Oréal. All rights reserved.</p>
         <nav>
-          <!-- These URLs are placeholders -->
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
-          <a href="#">Contact</a>
+          <a
+            href="https://www.loreal.com/en/group/global-privacy-policy/"
+            target="_blank"
+            rel="noopener"
+            >Privacy Policy</a
+          >
+          <a
+            href="https://www.loreal.com/en/term-of-use/"
+            target="_blank"
+            rel="noopener"
+            >Terms of Use</a
+          >
         </nav>
       </footer>
     </div>

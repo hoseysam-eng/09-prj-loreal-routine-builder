@@ -7,6 +7,7 @@ const selectedProductsList = document.getElementById("selectedProductsList");
 const generateBtn = document.getElementById("generateRoutine");
 const clearBtn = document.getElementById("clearSelections");
 const userInput = document.getElementById("userInput");
+const themeToggle = document.getElementById("themeToggle");
 
 /* Initial placeholder */
 productsContainer.innerHTML = `
@@ -330,6 +331,24 @@ chatForm.addEventListener("submit", async (e) => {
   } finally {
     userInput.value = "";
   }
+});
+
+/* Theme setup */
+(function initTheme() {
+  const saved = localStorage.getItem("theme");
+  if (saved === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "Light mode";
+    themeToggle.setAttribute("aria-pressed", "true");
+  }
+})();
+
+/* Theme toggle handler */
+themeToggle.addEventListener("click", () => {
+  const isDark = document.body.classList.toggle("dark-mode");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+  themeToggle.textContent = isDark ? "Light mode" : "Dark mode";
+  themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
 });
 
 /* Initialize: load all products, then render selected list */

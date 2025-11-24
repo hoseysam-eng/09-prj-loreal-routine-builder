@@ -7,24 +7,32 @@
 
 /* Brand colors */
 :root {
-  --brand-primary: #ff003b;
-  --brand-accent: #e3a535;
+  --brand-primary: #000000; /* dominant black */
+  --brand-accent: #c5a35d; /* luxe gold */
+  --bg-page: #e1e1e1; /* was #f8f8f8 */
+  --text-main: #1a1a1a;
+  --border-light: #e2e2e2;
+  --panel-gold: #dbc08a;
+  --panel-gold-soft: #f3e7cf;
+  --panel-gold-deep: #c5a35d;
 }
 
 /* —— body + fonts —— */
 body {
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  color: var(--text-main);
   display: flex;
   justify-content: center;
-  background: #e6e6e6; /* light grey page background */
+  background: linear-gradient(#000 0 180px, var(--bg-page) 180px 100%);
+  letter-spacing: 0.4px;
 }
 
 .page-wrapper {
   width: 90%;
   max-width: 900px;
-  background: #ffffff; /* keep content readable */
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+  background: var(--panel-gold-soft);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-light);
   border-radius: 10px;
   padding-bottom: 40px;
 }
@@ -32,19 +40,26 @@ body {
 /* header */
 .site-header {
   text-align: center;
-  padding-top: 50px;
-  padding-bottom: 10px;
+  padding-top: 60px;
+  padding-bottom: 30px;
+  background: #000;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #222;
 }
 
 .logo {
   width: 250px;
   margin-bottom: 15px;
+  filter: brightness(0) invert(1);
 }
 
 .site-title {
   font-size: 22px;
-  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
   margin-bottom: 10px;
+  color: #fff;
 }
 
 /* category filter */
@@ -57,29 +72,45 @@ body {
   width: 100%;
   padding: 16px;
   font-size: 18px;
-  border: 2px solid #000;
+  border: 1px solid #000;
   border-radius: 8px;
   cursor: pointer;
-  background-color: white;
+  background: #e1e1e1; /* unify with chat window grey */
+  color: var(--text-main);
   font-weight: 500;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .search-section select:focus {
-  outline: none;
-  border-color: #666;
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 3px rgba(197, 163, 93, 0.25);
+}
+
+/* Dark mode select override */
+body.dark-mode .search-section select {
+  background: #111;
+  color: #eae6dd;
+  border-color: #333;
 }
 
 /* chat section */
 .chatbox {
   margin: 40px 0;
-  border: 2px solid #000;
+  border: 1px solid #222;
   border-radius: 8px;
   padding: 26px;
+  background: #000;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
 .chatbox h2 {
   font-size: 20px;
   margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  color: var(--panel-gold-deep);
 }
 
 .chat-window {
@@ -89,7 +120,9 @@ body {
   font-size: 16px; /* was 18px */
   line-height: 1.55; /* was 1.5 */
   overflow-y: auto;
-  background: #f2f2f2; /* slightly greyer */
+  background: #e1e1e1; /* darker grey for light mode */
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
   margin-bottom: 20px;
 }
 
@@ -108,12 +141,13 @@ body {
   text-align: right;
 }
 .msg.user .bubble {
-  background: var(--brand-accent);
+  background: var(--panel-gold-deep);
   color: #000;
 }
 .msg.bot .bubble {
-  background: #fff;
-  border: 1px solid #ddd;
+  background: #000;
+  border: 1px solid var(--panel-gold-deep);
+  color: #f5f5f5;
   /* reduce width by ~30% compared to full width */
   max-width: 70%;
 }
@@ -139,19 +173,24 @@ body {
   padding: 12px;
   font-size: 18px;
   border: none;
-  border-bottom: 2px solid #ccc;
-  background: transparent;
+  border-bottom: 2px solid var(--border-light);
+  background: #dcdcdc; /* darker grey for light mode */
+  color: var(--text-main); /* explicit text color */
+  caret-color: var(--panel-gold-deep); /* visible caret */
 }
 
 .chat-form input:focus {
-  outline: none;
-  border-bottom-color: #000;
+  border-bottom-color: var(--brand-accent);
+}
+
+.chat-form input::placeholder {
+  color: #444; /* slightly darker for contrast */
 }
 
 .chat-form button {
   font-size: 18px;
   background: #000;
-  color: #fff;
+  color: var(--panel-gold-deep);
   border: none;
   padding: 12px;
   width: 48px;
@@ -164,11 +203,12 @@ body {
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: #222;
+  color: var(--panel-gold);
 }
 
 .chat-form button:focus {
-  outline: 2px solid #000;
+  outline: 3px solid rgba(197, 163, 93, 0.45);
   outline-offset: 2px;
 }
 
@@ -178,8 +218,9 @@ body {
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  background: #fff;
-  border: 1px solid #ddd;
+  background: #111;
+  color: #ddd;
+  border: 1px solid #333;
   border-radius: 8px;
   font-size: 14px;
   color: #444;
@@ -193,7 +234,7 @@ body {
 .dots span {
   width: 8px;
   height: 8px;
-  background: var(--brand-primary);
+  background: var(--panel-gold-deep);
   border-radius: 50%;
   animation: bounce 1s infinite ease-in-out;
   opacity: 0.25;
@@ -243,7 +284,10 @@ body {
   margin: 24px 0 16px;
   text-align: center;
   font-size: 14px;
-  color: #666;
+  color: var(--panel-gold-deep);
+  background: #000;
+  padding: 28px 0 22px;
+  border-top: 1px solid #222;
 }
 
 .site-footer nav {
@@ -252,12 +296,28 @@ body {
 
 .site-footer a {
   margin: 0 8px;
-  color: #000;
+  color: var(--panel-gold-deep);
   text-decoration: none;
+  position: relative;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: #fff;
+}
+
+.site-footer a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background: var(--panel-gold-deep);
+  transition: width 0.25s;
+}
+
+.site-footer a:hover::after {
+  width: 100%;
 }
 
 /* products grid */
@@ -270,7 +330,7 @@ body {
 
 .product-card {
   flex: 0 1 calc(33.333% - 14px);
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-light);
   padding: 15px;
   border-radius: 4px;
   display: flex;
@@ -278,13 +338,20 @@ body {
   min-height: 160px;
   cursor: pointer;
   transition: box-shadow 0.2s, border-color 0.2s;
+  background: #fff;
 }
 .product-card:hover {
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+  border-color: var(--brand-accent);
 }
 .product-card.selected {
-  border: 2px solid var(--brand-primary);
-  box-shadow: 0 10px 22px rgba(255, 0, 59, 0.12);
+  border: 2px solid var(--brand-accent);
+  box-shadow: 0 10px 28px rgba(197, 163, 93, 0.25);
+  background: linear-gradient(
+    135deg,
+    var(--panel-gold-soft),
+    var(--panel-gold)
+  );
 }
 
 .product-card img {
@@ -305,6 +372,8 @@ body {
 .product-card h3 {
   font-size: 16px;
   margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .product-card p {
@@ -319,35 +388,52 @@ body {
   font-size: 12px;
   padding: 6px 10px;
   border-radius: 999px;
-  background: var(--brand-accent);
+  background: var(--panel-gold-deep);
   color: #000;
   border: none;
   cursor: pointer;
+  transition: background 0.2s;
 }
+.details-btn:hover {
+  background: #000;
+  color: var(--panel-gold-deep);
+}
+/* Replace wide layout with compact centered style */
 .product-desc {
   margin-top: 10px;
   font-size: 13px;
   color: #333;
-  background: #f3f3f3; /* align with greyer theme */
-  border-left: 3px solid var(--brand-accent);
-  padding: 8px 10px;
-  border-radius: 4px;
-  /* widen box across image (110px) + gap (15px) */
+  background: #dcdcdc;
+  border-left: 3px solid var(--panel-gold-deep);
+  padding: 6px 8px;
+  border-radius: 6px;
+  text-align: left;
   width: calc(100% + 125px);
+  max-width: calc(100% + 125px);
   margin-left: calc(-110px - 15px);
+  padding: 10px 14px;
+  line-height: 1.5;
 }
+.product_desc { display: none; } /* legacy selector no longer used */
 
 /* selected products */
 .selected-products {
   margin: 40px 0;
   padding: 20px;
-  border: 2px solid #000;
+  border: 1px solid #bfa46b;
   border-radius: 8px;
+  background: var(--panel-gold);
+  color: #000;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
 }
 
 .selected-products h2 {
   font-size: 20px;
   margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #000;
 }
 
 .selected-actions {
@@ -360,10 +446,24 @@ body {
 .clear-btn {
   background: transparent;
   border: none;
-  color: #666;
+  color: #000;
   text-decoration: underline;
   cursor: pointer;
   font-size: 14px;
+}
+
+.clear-btn:hover {
+  color: #222;
+}
+
+body.dark-mode .clear-btn {
+  color: #fff;
+}
+body.dark-mode .clear-btn:hover {
+  color: var(--panel-gold-deep);
+}
+body.dark-mode .selected-products h2 {
+  color: #fff;
 }
 
 #selectedProductsList {
@@ -376,8 +476,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #f4f4f4;
-  border: 1px solid #ddd;
+  background: var(--panel-gold-soft);
+  border: 1px solid #c9b27a;
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 13px;
@@ -388,10 +488,14 @@ body {
   line-height: 20px;
   text-align: center;
   border-radius: 50%;
-  background: var(--brand-primary);
+  background: #000;
   color: #fff;
   border: none;
   cursor: pointer;
+}
+.pill .remove-pill:hover {
+  background: var(--panel-gold-deep);
+  color: #000;
 }
 
 /* primary action */
@@ -401,18 +505,83 @@ body {
   padding: 16px;
   font-size: 18px;
   font-weight: 500;
-  color: #fff;
-  background: var(--brand-primary);
+  color: var(--panel-gold-deep);
+  background: #000;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s;
+  letter-spacing: 1px;
 }
 
 .generate-btn:hover {
-  background: #cc0030;
+  background: #222;
+  color: var(--panel-gold);
 }
 
-.generate-btn i {
-  margin-right: 8px;
+/* theme toggle button */
+.theme-toggle {
+  margin-top: 12px;
+  background: #000;
+  color: var(--panel-gold-deep);
+  border: 1px solid var(--panel-gold-deep);
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+.theme-toggle:hover {
+  background: #222;
+  color: var(--panel-gold);
+}
+
+/* dark mode overrides */
+body.dark-mode {
+  --bg-page: #0d0d0d;
+  --text-main: #eae6dd;
+}
+body.dark-mode .page-wrapper { background:#141414; }
+body.dark-mode .site-header { background:#111; border-bottom:1px solid #222; }
+body.dark-mode .site-title { color: var(--panel-gold-deep); }
+body.dark-mode .theme-toggle {
+  background: var(--panel-gold-deep);
+  color:#000;
+  border-color: var(--panel-gold-deep);
+}
+body.dark-mode .theme-toggle:hover {
+  background:#a6802f;
+  color:#fff;
+}
+body.dark-mode .chatbox { background:#111; color:#eae6dd; border-color:#222; }
+body.dark-mode .chat-window { background:#181818; border-color:#222; color:#ddd; }
+body.dark-mode .msg.user .bubble { background:var(--panel-gold-deep); color:#000; }
+body.dark-mode .msg.bot .bubble { background:#111; border-color:var(--panel-gold-deep); }
+body.dark-mode .routine-loading { background:#181818; border-color:#222; color:#ccc; }
+body.dark-mode .selected-products { background:#2a2518; color:#eae6dd; border-color:#4a3a20; }
+body.dark-mode .pill { background:#3a301f; border-color:#4a3a20; color:#eae6dd; }
+body.dark-mode .pill .remove-pill { background:var(--panel-gold-deep); color:#000; }
+body.dark-mode .pill .remove-pill:hover { background:#a6802f; color:#fff; }
+body.dark-mode .generate-btn { background:var(--panel-gold-deep); color:#000; }
+body.dark-mode .generate-btn:hover { background:#a6802f; color:#fff; }
+body.dark-mode .product-card { background:#1c1c1c; border-color:#333; }
+body.dark-mode .product-card:hover { border-color:var(--panel-gold-deep); }
+body.dark-mode .product-card.selected {
+  background:linear-gradient(135deg,#3a301f,#2a2518);
+  border-color:var(--panel-gold-deep);
+}
+body.dark-mode .details-btn { background:var(--panel-gold-deep); color:#000; }
+body.dark-mode .details-btn:hover { background:#a6802f; color:#fff; }
+body.dark-mode .product-desc,
+body.dark-mode .product_desc { background:#2a2518; border-left-color:var(--panel-gold-deep); color:#eae6dd; }
+body.dark-mode .site-footer { background:#111; color:var(--panel-gold-deep); }
+body.dark-mode .site-footer a { color:var(--panel-gold-deep); }
+body.dark-mode .site-footer a:hover { color:#fff; }
+body.dark-mode .chat-form input {
+  background: #000; /* was #181818 */
+  color: #eae6dd;
+  border-bottom-color: #333;
+  caret-color: var(--panel-gold-deep);
 }
