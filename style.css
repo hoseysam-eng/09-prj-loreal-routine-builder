@@ -414,7 +414,9 @@ body.dark-mode .search-section select {
   padding: 10px 14px;
   line-height: 1.5;
 }
-.product_desc { display: none; } /* legacy selector no longer used */
+.product_desc {
+  display: none;
+} /* legacy selector no longer used */
 
 /* selected products */
 .selected-products {
@@ -543,42 +545,109 @@ body.dark-mode {
   --bg-page: #0d0d0d;
   --text-main: #eae6dd;
 }
-body.dark-mode .page-wrapper { background:#141414; }
-body.dark-mode .site-header { background:#111; border-bottom:1px solid #222; }
-body.dark-mode .site-title { color: var(--panel-gold-deep); }
+body.dark-mode .page-wrapper {
+  background: #141414;
+}
+body.dark-mode .site-header {
+  background: #111;
+  border-bottom: 1px solid #222;
+}
+body.dark-mode .site-title {
+  color: var(--panel-gold-deep);
+}
 body.dark-mode .theme-toggle {
   background: var(--panel-gold-deep);
-  color:#000;
+  color: #000;
   border-color: var(--panel-gold-deep);
 }
 body.dark-mode .theme-toggle:hover {
-  background:#a6802f;
-  color:#fff;
+  background: #a6802f;
+  color: #fff;
 }
-body.dark-mode .chatbox { background:#111; color:#eae6dd; border-color:#222; }
-body.dark-mode .chat-window { background:#181818; border-color:#222; color:#ddd; }
-body.dark-mode .msg.user .bubble { background:var(--panel-gold-deep); color:#000; }
-body.dark-mode .msg.bot .bubble { background:#111; border-color:var(--panel-gold-deep); }
-body.dark-mode .routine-loading { background:#181818; border-color:#222; color:#ccc; }
-body.dark-mode .selected-products { background:#2a2518; color:#eae6dd; border-color:#4a3a20; }
-body.dark-mode .pill { background:#3a301f; border-color:#4a3a20; color:#eae6dd; }
-body.dark-mode .pill .remove-pill { background:var(--panel-gold-deep); color:#000; }
-body.dark-mode .pill .remove-pill:hover { background:#a6802f; color:#fff; }
-body.dark-mode .generate-btn { background:var(--panel-gold-deep); color:#000; }
-body.dark-mode .generate-btn:hover { background:#a6802f; color:#fff; }
-body.dark-mode .product-card { background:#1c1c1c; border-color:#333; }
-body.dark-mode .product-card:hover { border-color:var(--panel-gold-deep); }
+body.dark-mode .chatbox {
+  background: #111;
+  color: #eae6dd;
+  border-color: #222;
+}
+body.dark-mode .chat-window {
+  background: #181818;
+  border-color: #222;
+  color: #ddd;
+}
+body.dark-mode .msg.user .bubble {
+  background: var(--panel-gold-deep);
+  color: #000;
+}
+body.dark-mode .msg.bot .bubble {
+  background: #111;
+  border-color: var(--panel-gold-deep);
+}
+body.dark-mode .routine-loading {
+  background: #181818;
+  border-color: #222;
+  color: #ccc;
+}
+body.dark-mode .selected-products {
+  background: #2a2518;
+  color: #eae6dd;
+  border-color: #4a3a20;
+}
+body.dark-mode .pill {
+  background: #3a301f;
+  border-color: #4a3a20;
+  color: #eae6dd;
+}
+body.dark-mode .pill .remove-pill {
+  background: var(--panel-gold-deep);
+  color: #000;
+}
+body.dark-mode .pill .remove-pill:hover {
+  background: #a6802f;
+  color: #fff;
+}
+body.dark-mode .generate-btn {
+  background: var(--panel-gold-deep);
+  color: #000;
+}
+body.dark-mode .generate-btn:hover {
+  background: #a6802f;
+  color: #fff;
+}
+body.dark-mode .product-card {
+  background: #1c1c1c;
+  border-color: #333;
+}
+body.dark-mode .product-card:hover {
+  border-color: var(--panel-gold-deep);
+}
 body.dark-mode .product-card.selected {
-  background:linear-gradient(135deg,#3a301f,#2a2518);
-  border-color:var(--panel-gold-deep);
+  background: linear-gradient(135deg, #3a301f, #2a2518);
+  border-color: var(--panel-gold-deep);
 }
-body.dark-mode .details-btn { background:var(--panel-gold-deep); color:#000; }
-body.dark-mode .details-btn:hover { background:#a6802f; color:#fff; }
+body.dark-mode .details-btn {
+  background: var(--panel-gold-deep);
+  color: #000;
+}
+body.dark-mode .details-btn:hover {
+  background: #a6802f;
+  color: #fff;
+}
 body.dark-mode .product-desc,
-body.dark-mode .product_desc { background:#2a2518; border-left-color:var(--panel-gold-deep); color:#eae6dd; }
-body.dark-mode .site-footer { background:#111; color:var(--panel-gold-deep); }
-body.dark-mode .site-footer a { color:var(--panel-gold-deep); }
-body.dark-mode .site-footer a:hover { color:#fff; }
+body.dark-mode .product_desc {
+  background: #2a2518;
+  border-left-color: var(--panel-gold-deep);
+  color: #eae6dd;
+}
+body.dark-mode .site-footer {
+  background: #111;
+  color: var(--panel-gold-deep);
+}
+body.dark-mode .site-footer a {
+  color: var(--panel-gold-deep);
+}
+body.dark-mode .site-footer a:hover {
+  color: #fff;
+}
 body.dark-mode .chat-form input {
   background: #000; /* was #181818 */
   color: #eae6dd;
