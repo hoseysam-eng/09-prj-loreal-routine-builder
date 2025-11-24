@@ -13,9 +13,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" />
-    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" />
+    <link rel="icon" type="image/png" sizes="16x16 32x32 48x48" href="img/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
     <link rel="apple-touch-icon" href="/img/favicon.png" />
     <meta name="theme-color" content="#c5a35d" />
   </head>
@@ -121,5 +120,15 @@
       window.CFWORKER_URL = "https://gentle-cherry.james-hosey3.workers.dev/";
     </script>
     <script src="script.js"></script>
+    <script>
+      // Favicon load check (optional)
+      (function verifyFavicon() {
+        const fav = document.querySelector('link[rel="icon"]');
+        if (!fav) return;
+        const testImg = new Image();
+        testImg.onerror = () => console.warn("Favicon not found:", fav.href);
+        testImg.src = fav.href;
+      })();
+    </script>
   </body>
 </html>
